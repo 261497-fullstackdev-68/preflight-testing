@@ -111,6 +111,8 @@ describe('Auth pages', () => {
       cy.get('button[type="submit"]').click()
     })
 
+
+
     it('notification', () => {
       cy.get('[aria-label="Notification"]').should('be.visible')
       // cy.get('[aria-label="Notification"]').click()
