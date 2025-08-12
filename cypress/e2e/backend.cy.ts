@@ -13,7 +13,7 @@ describe("Auth API", () => {
         username = "testuser_" + Date.now();
     });
 
-    it("Successful signup", () => {
+    it("Successful signup", () => {     //สมัครสมาชิกสำเร็จ
         cy.request("POST", `${baseUrl}/signup`, {
             username,
             password,
@@ -24,7 +24,7 @@ describe("Auth API", () => {
         });
     });
 
-    it("Signup with duplicate username should error", () => {
+    it("Signup with duplicate username should error", () => {   //สมัครสมาชิกซ้ำควร error
         cy.request({
             method: "POST",
             url: `${baseUrl}/signup`,
@@ -40,7 +40,7 @@ describe("Auth API", () => {
         });
     });
 
-    it("Password mismatch should error", () => {
+    it("Password mismatch should error", () => {   //รหัสผ่านไม่ตรงกันควร error
         cy.request({
             method: "POST",
             url: `${baseUrl}/signup`,
@@ -56,7 +56,7 @@ describe("Auth API", () => {
         });
     });
 
-    it("Successful login", () => {
+    it("Successful login", () => {  //เข้าสู่ระบบสำเร็จ
         cy.request("POST", `${baseUrl}/login`, {
             username,
             password,
@@ -68,7 +68,7 @@ describe("Auth API", () => {
         });
     });
 
-    it("Login with wrong password should error", () => {
+    it("Login with wrong password should error", () => {    //เข้าสู่ระบบด้วยรหัสผ่านผิดควร error
         cy.request({
             method: "POST",
             url: `${baseUrl}/login`,
@@ -83,7 +83,7 @@ describe("Auth API", () => {
         });
     });
 
-    it("Login with non-existent user should error", () => {
+    it("Login with non-existent user should error", () => {   //เข้าสู่ระบบด้วยผู้ใช้ที่ไม่มีควร error
         cy.request({
             method: "POST",
             url: `${baseUrl}/login`,
@@ -98,7 +98,7 @@ describe("Auth API", () => {
         });
     });
 
-    it("GET /users - should get list of users", () => {
+    it("GET /users - should get list of users", () => { //ดึงรายชื่อผู้ใช้ทั้งหมด
         cy.request("GET", `${baseUrl}/users`).then((res) => {
             expect(res.status).to.eq(200);
             expect(res.body).to.be.an("array");
@@ -106,7 +106,7 @@ describe("Auth API", () => {
         });
     });
 
-    it("POST /create - create new todo successfully", () => {
+    it("POST /create - create new todo successfully", () => {   //สร้าง todo ใหม่สำเร็จ
         cy.request({
             method: "POST",
             url: `${Cypress.env("BACKEND_URL")}/create`,
@@ -126,7 +126,7 @@ describe("Auth API", () => {
         })
     })
 
-    it("GET /todo/:userId - fetch todos of user", () => {
+    it("GET /todo/:userId - fetch todos of user", () => {   //ดึงรายการ todo ของผู้ใช้
         cy.request("GET", `${Cypress.env("BACKEND_URL")}/todo/${userId}`).then((res) => {
             expect(res.status).to.eq(200);
             expect(res.body).to.be.an("array");
@@ -139,7 +139,7 @@ describe("Auth API", () => {
         });
     });
 
-    it("DELETE /todo - delete todo successfully", () => {
+    it("DELETE /todo - delete todo successfully", () => {   //ลบ todo สำเร็จ
         cy.request("DELETE", `${baseUrl}/todo`, { id: createdTodoId }).then((res) => {
             expect(res.status).to.eq(200);
             expect(res.body.msg).to.eq("Delete successfully");
@@ -147,7 +147,7 @@ describe("Auth API", () => {
         });
     });
 
-    it("GET /todo/:userId - after deleting todo should not find it", () => {
+    it("GET /todo/:userId - after deleting todo should not find it", () => {    //หลังจากลบ todo แล้วไม่ควรพบรายการนั้น
         cy.request("GET", `${baseUrl}/todo/${userId}`).then((res) => {
             expect(res.status).to.eq(200);
             expect(
@@ -159,7 +159,7 @@ describe("Auth API", () => {
         });
     });
 
-    it("POST /todos/shareTodo - missing user_id", () => {
+    it("POST /todos/shareTodo - missing user_id", () => {   //แชร์ todo โดยไม่ระบุ user_id ควร error
         cy.request({
         method: "POST",
         url: `${baseUrl}/todos/shareTodo`,
@@ -171,7 +171,7 @@ describe("Auth API", () => {
         });
     });
 
-    it("POST /todos/shareTodo - success", () => {
+    it("POST /todos/shareTodo - success", () => {   //แชร์ todo สำเร็จ
     const user_id = 1; 
 
     cy.request("POST", `${baseUrl}/todos/shareTodo`, { user_id }).then((res) => {
@@ -180,7 +180,7 @@ describe("Auth API", () => {
     });
   });
 
-  it("POST /todos/fullTodo - missing task_id_list", () => {
+  it("POST /todos/fullTodo - missing task_id_list", () => {  //เรียกดูรายละเอียด todo โดยไม่ระบุ task_id_list ควร error
     cy.request({
       method: "POST",
       url: `${baseUrl}/todos/fullTodo`,
@@ -192,7 +192,7 @@ describe("Auth API", () => {
     });
   });
 
-  it("POST /shareTodo/accept - missing id", () => {
+  it("POST /shareTodo/accept - missing id", () => {  //ยอมรับการแชร์ todo โดยไม่ระบุ id ควร error
     cy.request({
       method: "POST",
       url: `${baseUrl}/shareTodo/accept`,
@@ -204,7 +204,7 @@ describe("Auth API", () => {
     });
   });
 
-  it("POST /shareTodo/decline - missing id", () => {
+  it("POST /shareTodo/decline - missing id", () => {    //ปฏิเสธการแชร์ todo โดยไม่ระบุ id ควร error
     cy.request({
       method: "POST",
       url: `${baseUrl}/shareTodo/decline`,
@@ -216,7 +216,7 @@ describe("Auth API", () => {
     });
   });
 
-  it("POST /shareTodo/withOthers - missing fields", () => {
+  it("POST /shareTodo/withOthers - missing fields", () => {  //แชร์ todo กับผู้อื่นโดยไม่ระบุ task_id และ sharewith ควร error
     cy.request({
       method: "POST",
       url: `${baseUrl}/shareTodo/withOthers`,
@@ -228,7 +228,20 @@ describe("Auth API", () => {
     });
   });
 
-  it("POST /todos/editTodo - missing id", () => {
+  it("GET /getShareTodo/:task_id - Fetch shared data successfully", () => {  //ดึงข้อมูลที่แชร์สำเร็จ
+    const validTaskId = 1;
+    cy.request({
+        method: "GET",
+        url: `${baseUrl}/getShareTodo/${validTaskId}`,
+        failOnStatusCode: false
+    }).then((response) => {
+        expect(response.status).to.eq(200);
+        expect(response.body).to.not.be.undefined;
+        expect(response.body).to.be.an("array");
+    });
+  });
+
+  it("POST /todos/editTodo - missing id", () => {   //แก้ไข todo โดยไม่ระบุ id ควร error
     cy.request({
       method: "POST",
       url: `${baseUrl}/todos/editTodo`,
