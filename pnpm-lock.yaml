@@ -15,16 +15,16 @@ importers:
         specifier: ^23.6.1
         version: 23.6.1
       '@types/node':
-        specifier: ^24.2.1
+        specifier: ^24.0.14
         version: 24.2.1
       cypress:
-        specifier: ^14.5.4
+        specifier: ^14.5.2
         version: 14.5.4
       dotenv:
-        specifier: ^17.2.1
+        specifier: ^17.2.0
         version: 17.2.1
       typescript:
-        specifier: ^5.9.2
+        specifier: ^5.8.3
         version: 5.9.2
 
 packages:
